@@ -1,5 +1,6 @@
 import React from "react";
 import HRMSLogo from "../../assets/images/hrms_logo.svg";
+import { Link } from "react-router-dom";
 
 const TopNavBar = ({ toggleSidebar }) => {
   return (
@@ -7,7 +8,9 @@ const TopNavBar = ({ toggleSidebar }) => {
       <span className="navbar-brand mb-0 h1 ms-3">
         {" "}
         <div>
-          <img src={HRMSLogo} width={80} alt="Company Logo" />
+          <Link to="/main">
+            <img src={HRMSLogo} width={80} alt="HRMS Logo" />
+          </Link>
         </div>
       </span>
       <button

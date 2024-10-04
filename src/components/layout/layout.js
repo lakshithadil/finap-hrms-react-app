@@ -63,6 +63,7 @@ const Layout = () => {
             : "sidebar-closed"
         }`}
         // style={{ transition: "margin-left 0.3s ease" }}
+        style={{ marginTop: isSmallScreen ? "56px" : "0" }} // Adjusting top margin
       >
         <div className="container-fluid p-3">
           {/* Toggle Button Screens */}
