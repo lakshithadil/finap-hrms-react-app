@@ -9,20 +9,27 @@ import Breadcrumbs from "../../components/common/breadcrumbs/breadcrumbs";
 import LoadingSpinner from "../../components/common/loadingSpinner/loadingSpinner";
 import { get_departments_api } from "../../services/departmentService";
 import { toast } from "react-toastify";
+import ErrorMessage from "../../components/common/errorMessage/errorMessage";
 
 const EditEmployee = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [employee, setEmployee] = useState(null);
   const [departments, setDepartments] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
         const response = await get_employee_by_employee_id_api(id);
-        setEmployee(response.data.result);
+        if (response.data.result) {
+          setEmployee(response.data.result);
+        } else {
+          setError("Employee not found.");
+        }
       } catch (error) {
         console.log("Error fetching employee:", error);
+        setError("Error fetching employee details.");
       }
     };
     fetchEmployee();
@@ -56,7 +63,9 @@ const EditEmployee = () => {
     <div>
       <Breadcrumbs />
       <h1>Edit Employee</h1>
-      {employee ? (
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : employee ? (
         <EmployeeForm
           initialData={employee}
           onSubmit={handleUpdate}
