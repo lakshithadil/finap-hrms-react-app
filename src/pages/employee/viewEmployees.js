@@ -6,6 +6,7 @@ import {
   delete_employee_api,
 } from "../../services/employeeService";
 import Breadcrumbs from "../../components/common/breadcrumbs/breadcrumbs";
+import { toast } from "react-toastify";
 
 const ViewEmployees = () => {
   const [employees, setEmployees] = useState([]);
@@ -24,10 +25,20 @@ const ViewEmployees = () => {
 
   const handleDelete = async (employeeId) => {
     try {
-      await delete_employee_api(employeeId);
-      setEmployees(employees.filter((employee) => employee.id !== employeeId));
+      const response = await delete_employee_api(employeeId);
+      if (response.status === 204) {
+        setEmployees(
+          employees.filter((employee) => employee.employeeId !== employeeId)
+        );
+        toast.success("Employee deleted successfully!");
+      } else {
+        toast.error("Failed to delete employee. Please try again.");
+      }
     } catch (error) {
-      console.log("Error deleting employee:", error);
+      toast.error(
+        "Error deleting employee: " +
+          (error.message || "Please try again later.")
+      );
     }
   };
 

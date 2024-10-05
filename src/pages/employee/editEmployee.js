@@ -8,6 +8,7 @@ import {
 import Breadcrumbs from "../../components/common/breadcrumbs/breadcrumbs";
 import LoadingSpinner from "../../components/common/loadingSpinner/loadingSpinner";
 import { get_departments_api } from "../../services/departmentService";
+import { toast } from "react-toastify";
 
 const EditEmployee = () => {
   const { id } = useParams();
@@ -40,8 +41,15 @@ const EditEmployee = () => {
   }, []);
 
   const handleUpdate = async (updatedEmployee) => {
-    await put_employee_api(id, updatedEmployee);
-    navigate("/main/employees");
+    try {
+      const response = await put_employee_api(id, updatedEmployee);
+      if (response.status === 200) {
+        toast.success("Employee updated successfully!");
+        navigate("/main/employees");
+      }
+    } catch (error) {
+      toast.error(error.message || "Error updating employee");
+    }
   };
 
   return (

@@ -4,14 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { post_employee_api } from "../../services/employeeService";
 import Breadcrumbs from "../../components/common/breadcrumbs/breadcrumbs";
 import { get_departments_api } from "../../services/departmentService";
+import { toast } from "react-toastify";
 
 const CreateEmployee = () => {
   const [departments, setDepartments] = useState([]);
   const navigate = useNavigate();
 
   const handleCreate = async (employee) => {
-    await post_employee_api(employee);
-    navigate("/main/employees"); // Redirect to the employee list after creation
+    try {
+      const response = await post_employee_api(employee);
+      if (response.status === 201) {
+        toast.success("Employee created successfully!");
+        navigate("/main/employees");
+      }
+    } catch (error) {
+      toast.error(error.message || "Error creating employee");
+    }
   };
 
   useEffect(() => {

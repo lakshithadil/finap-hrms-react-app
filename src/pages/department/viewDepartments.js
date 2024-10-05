@@ -6,6 +6,7 @@ import {
   delete_department_api,
 } from "../../services/departmentService";
 import Breadcrumbs from "../../components/common/breadcrumbs/breadcrumbs";
+import { toast } from "react-toastify";
 
 const ViewDepartments = () => {
   const [departments, setDepartments] = useState([]);
@@ -24,12 +25,22 @@ const ViewDepartments = () => {
 
   const handleDelete = async (departmentId) => {
     try {
-      await delete_department_api(departmentId);
-      setDepartments(
-        departments.filter((department) => department.id !== departmentId)
-      );
+      const response = await delete_department_api(departmentId);
+      if (response.status === 204) {
+        setDepartments(
+          departments.filter(
+            (department) => department.departmentId !== departmentId
+          )
+        );
+        toast.success("Department deleted successfully!");
+      } else {
+        toast.error("Failed to delete department. Please try again.");
+      }
     } catch (error) {
-      console.log("Error deleting department:", error);
+      toast.error(
+        "Error deleting department: " +
+          (error.message || "Please try again later.")
+      );
     }
   };
 

@@ -7,6 +7,7 @@ import {
 } from "../../services/departmentService";
 import Breadcrumbs from "../../components/common/breadcrumbs/breadcrumbs";
 import LoadingSpinner from "../../components/common/loadingSpinner/loadingSpinner";
+import { toast } from "react-toastify";
 
 const EditDepartment = () => {
   const { id } = useParams();
@@ -26,8 +27,15 @@ const EditDepartment = () => {
   }, [id]);
 
   const handleUpdate = async (updatedDepartment) => {
-    await put_department_api(id, updatedDepartment);
-    navigate("/main/departments");
+    try {
+      const response = await put_department_api(id, updatedDepartment);
+      if (response.status === 200) {
+        toast.success("Department updated successfully!");
+        navigate("/main/departments");
+      }
+    } catch (error) {
+      toast.error(error.message || "Error updating department");
+    }
   };
 
   return (
