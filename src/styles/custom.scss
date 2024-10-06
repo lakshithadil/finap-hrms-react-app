@@ -1,0 +1,48 @@
+// Import Bootstrap functions and variables before overriding them
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+
+// Override input focus color to match your theme
+$input-focus-border-color: #7daf8a; // Use your theme color for input focus border
+$input-focus-box-shadow: 0 0 0 0.25rem rgba(125, 175, 138, 0.25); // Match theme color with slight transparency for input focus box shadow
+
+.btn-primary {
+    background-color: #7daf8a !important;
+    border-color: #7daf8a !important;
+  
+    &:hover,
+    &:focus {
+      background-color: darken(#7daf8a, 10%) !important;
+      border-color: darken(#7daf8a, 10%) !important;
+    }
+  }
+
+  .breadcrumb {
+    // Change the breadcrumb item text color
+    .breadcrumb-item,
+    .breadcrumb-item a {
+      color: #7daf8a;
+  
+      &:hover {
+        color: darken(#7daf8a, 10%); // Darken color for hover state
+        text-decoration: underline; // Optional: add underline for links on hover
+      }
+    }
+  
+    // Change the separator color
+    .breadcrumb-item + .breadcrumb-item::before {
+      color: #7daf8a;
+    }
+  
+    // Active breadcrumb item (last one)
+    .breadcrumb-item.active {
+      color: darken(#7daf8a, 15%); // Darker color for the active item to differentiate
+      font-weight: bold; // Optional: make the active item bold
+      text-decoration: none
+    }
+  }
+  
+// Import the rest of Bootstrap to apply the new variable values
+@import "~bootstrap/scss/bootstrap";
+

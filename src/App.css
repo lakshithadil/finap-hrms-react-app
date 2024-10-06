@@ -9,12 +9,12 @@
 }
 
 .list-group-item-action:hover {
-  background-color: #b2d1b9 !important; /* Lighter background for hover */
-  color: #ffffff !important; /* Change the text color on hover if needed */
+  background-color: #b2d1b9 !important;
+  color: #ffffff !important;
 }
 
 .list-group-item.active {
   background-color: #7daf8a !important;
   border-color: #7daf8a !important;
-  color: #fff !important; /* Optional: Adjust text color for better contrast */
+  color: #fff !important;
 }
